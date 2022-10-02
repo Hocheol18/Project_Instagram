@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>로그인</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JQuery -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body style="background: #FAFAFA">
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%">
+    <div style=" padding: 20px; text-align: center; border: solid 1px rgba(219,219,219,1); width: 300px; height: 500px; margin-top: 50px; background: white">
+        <div style="padding-bottom: 13px"><img style="width: 160px"
+                                               src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png">
+        </div>
+        <div style="font-weight: bold; font-size: 20px; color:gray;"> 친구들의 사진과 동영상을 보려면</div>
+        <div style="font-weight: bold; font-size: 20px; color:gray;"> 가입하세요.</div>
+        <div style="padding-top: 16px">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" style="font-size: 14px; height: 40px" id="input_email"
+                       placeholder="name@example.com">
+                <label for="input_email" style="font-size: 14px; padding: 9px 11px">Email address</label>
+            </div>
+        </div>
+        <div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" style="font-size: 14px; height: 40px" id="input_password"
+                       placeholder="name@example.com">
+                <label for="input_password" style="font-size: 14px; padding: 9px 11px">비밀번호 입력</label>
+            </div>
+        </div>
+        <button id="login_button" class="btn btn-primary" ; style="width : 100%">로그인</button>
+    </div>
+    <div style=" padding: 20px; text-align: center; border: solid 1px rgba(219,219,219,1); width: 300px; height: 60px; margin-top: 20px; background: white">
+        계정이 없으신가요? <a href="join">가입하기</a>
+    </div>
+</div>
+</div>
+
+<script>
+    $('#login_button').click(function () {
+
+        let email = $('#input_email').val();
+        let password = $('#input_password').val();
+
+        $.ajax({
+            url: "/user/login",
+            data: {
+                email: email,
+                password: password,
+            },
+
+            method: "POST",
+
+            success: function (data) {
+                console.log("성공");
+                alert("로그인 성공")
+                location.replace('/main')
+            },
+            error: function (request, status, error) {
+                console.log("에러");
+                alert("다시 확인해주세요")
+                location.replace('/user/login')
+            },
+            complete: function () {
+                console.log("완료");
+            }
+        });
+
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+</html>
